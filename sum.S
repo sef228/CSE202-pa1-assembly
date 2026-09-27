@@ -5,6 +5,18 @@
 #   offset 8  : value
 #   offset 16 : next
 sum:
+    movq $0, %rax # total = 0
+
+.Lsum_loop:
+    cmpq $0, %rdi #is the current pointer null 
+    je .Lsum_done # if it is stop
+
+    addq 8(%rdi), %rax # total += ptr->value
+    movq 16(%rdi), %rdi # ptr = ptr->next
+
+    jmp .Lsum_loop
+
+.Lsum_done:
     retq
 
 
